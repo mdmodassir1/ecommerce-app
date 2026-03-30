@@ -4,13 +4,17 @@ const Product = require('../models/Product');
 // @route   GET /api/products
 exports.getProducts = async (req, res) => {
   try {
-    const products = await Product.find({});
+    const products = await Product.find({})
+      .lean()
+      .maxTimeMS(60000);
+    
     res.json({
       success: true,
       count: products.length,
       data: products
     });
   } catch (error) {
+    console.error('Products fetch error:', error);
     res.status(500).json({
       success: false,
       message: error.message
