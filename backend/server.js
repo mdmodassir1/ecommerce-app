@@ -18,10 +18,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Enable CORS
+// ✅ FIXED CORS - Allow all origins for now
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
+  origin: '*',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Test route
@@ -30,14 +32,6 @@ app.get('/', (req, res) => {
     success: true, 
     message: '🚀 Backend API is running!',
     timestamp: new Date().toISOString()
-  });
-});
-
-// Test API route
-app.get('/api/test', (req, res) => {
-  res.json({ 
-    success: true, 
-    message: 'API test route working!' 
   });
 });
 
@@ -59,5 +53,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
   console.log(`📍 http://localhost:${PORT}`);
-  console.log(`📡 API Test: http://localhost:${PORT}/api/products`);
 });
