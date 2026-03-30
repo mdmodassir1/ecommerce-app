@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, 'Category is required'],
-    enum: ['beauty', 'fragrances', 'furniture', 'groceries', 'electronics', 'fashion']
+    enum: ['beauty', 'fragrances', 'furniture', 'groceries']
   },
   price: {
     type: Number,
@@ -39,19 +39,15 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Brand is required']
   },
-  sku: {
-    type: String,
-    unique: true
-  },
   thumbnail: {
     type: String,
     required: true
   },
   images: [String],
   tags: [String],
-  ratings: {
-    average: { type: Number, default: 0 },
-    count: { type: Number, default: 0 }
+  rating: {
+    type: Number,
+    default: 0
   },
   createdAt: {
     type: Date,
@@ -60,5 +56,10 @@ const productSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
+
+// Remove any existing indexes that might cause issues
+productSchema.index({ title: 1 });
+productSchema.index({ category: 1 });
+productSchema.index({ brand: 1 });
 
 module.exports = mongoose.model('Product', productSchema);

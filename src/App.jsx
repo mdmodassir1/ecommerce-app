@@ -4,7 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ReviewProvider } from './context/ReviewContext';
-import { AdminProvider } from './context/AdminContext';  // Add this
+import { AdminProvider } from './context/AdminContext';  
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AppRoutes from './routes';
@@ -14,7 +14,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AdminProvider>    {/* Add this */}
+        <AdminProvider>    
           <WishlistProvider>
             <ReviewProvider>
               <CartProvider>
@@ -28,7 +28,7 @@ function App() {
               </CartProvider>
             </ReviewProvider>
           </WishlistProvider>
-        </AdminProvider>    {/* Add this */}
+        </AdminProvider>    
       </AuthProvider>
     </BrowserRouter>
   );
